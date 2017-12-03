@@ -15,6 +15,29 @@ The goals / steps of this project are the following:
 * Summarize the results with a written report
 
 
+## Rubric Points
+### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
+
+#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
+
+You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
+
+
+### Data Set Summary & Exploration
+
+
+### Data Set Summary & Exploration
+
+#### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
+
+I used the pickled data provided here with project for training, testing and validation. I used images downloaded from Internet to test the model to see if the model recognizes the new images. There are two sets of images with two different shapes used in this project.
+
+        Training dataset includes 34799 entries
+        Test 12630 entries 
+        Validation 4410 entries
+
+**Load dataset from pickled data**
+Load the data from picked data for all three datasets - training , testing and validation data. Load the features and labels into two separate arrays for each of these environment. ensure that X and Y arrays are of same length.  List the shape of the data
 
 ```python
 # load pickled data consisting of three environments

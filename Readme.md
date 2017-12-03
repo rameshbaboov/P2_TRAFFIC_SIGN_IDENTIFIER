@@ -1460,7 +1460,7 @@ for index in range(no_of_images):
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
 The Top 5 softmax probabilities are given below.
-
+```
 Image/Probability --?     1			2		3		4		5
 Bumpy road	 	1.00000000e+00,   1.13607684e-18,   2.77682011e-20,  3.19724472e-21,   2.99252838e-23
 Ahead only          	1.00000000e+00,   1.19742632e-10,   1.18682304e-11,  5.34357714e-12,   1.61243360e-12
@@ -1484,7 +1484,7 @@ Label definitions:
 #15 - No vehicles
 #37- go straight or left
 
-
+```
 ```python
 #define all required inputs/function
 k_size = 5 # top 5 softmax output

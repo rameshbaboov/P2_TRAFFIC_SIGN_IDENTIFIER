@@ -898,15 +898,15 @@ print(Y_train[501:1000])
 
 The Convolution neural network Architecture consists of following five layers:
 
-#   Layer 1: Convolutional layer with Input as 32x32x1 and Output as 28x28x6 with a RELU activation function followed a pooling     with input as 28x28x6 and Output as 14x14x6.
+#####   Layer 1: Convolutional layer with Input as 32x32x1 and Output as 28x28x6 with a RELU activation function followed a 		pooling with input as 28x28x6 and Output as 14x14x6.
 
-#   Layer 2: Output of Layer 1 as input to Convolutional layer with output as 10x10x16 and with a RELU activation function         followed a pooling with input as 10x10x16 and flattened Output as 5x5x16 
+#####   Layer 2: Output of Layer 1 as input to Convolutional layer with output as 10x10x16 and with a RELU activation function         followed a pooling with input as 10x10x16 and flattened Output as 5x5x16 
 
-#   Layer 3: Output of Layer 2 input to fully connected layer followed by RELU activation function. Also implemented drop out 	  in layer 3 to increase the accuracy. Accuracy increased from 92% to 95% with drop out
+#####   Layer 3: Output of Layer 2 input to fully connected layer followed by RELU activation function. Also implemented drop 		out in layer 3 to increase the accuracy. Accuracy increased from 92% to 95% with drop out
 
-#   Layer 4: output of Layer 3 to fully connected layer followed by RELU activation function with dropout. Output = 84.
+#####   Layer 4: output of Layer 3 to fully connected layer followed by RELU activation function with dropout. Output = 84.
    
-#    Layer 5: Fully connected layer with input of 84 and output as 10 that returns the final logits
+#####    Layer 5: Fully connected layer with input of 84 and output as 10 that returns the final logits
 
   
 ```python

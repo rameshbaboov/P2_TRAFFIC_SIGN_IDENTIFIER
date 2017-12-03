@@ -1374,6 +1374,10 @@ print(my_images_normalized.shape)
 ![png](output_27_1.png)
 
 
+#### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+
+The model was able to accurately predict the results as shown below. I have given below the overall accuracy as well as the accuracy for each of these images
+
 
 ```python
 # test the new images
@@ -1453,7 +1457,32 @@ for index in range(no_of_images):
     Image 6
     Image Accuracy = 1.000
     
+#### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
+The Top 5 softmax probabilities are given below.
+
+Image/Probability --?     1			2		3		4		5
+Bumpy road	 	1.00000000e+00,   1.13607684e-18,   2.77682011e-20,  3.19724472e-21,   2.99252838e-23
+Ahead only          	1.00000000e+00,   1.19742632e-10,   1.18682304e-11,  5.34357714e-12,   1.61243360e-12
+No Vehicles    		9.99940276e-01,   3.90479836e-05,   8.22237689e-06,  5.98722590e-06,   4.44473517e-06
+General Caution		1.00000000e+00,   5.54507640e-36,   4.23992863e-36,  0.00000000e+00,   0.00000000e+00
+Speed limit 30km/h	9.97676194e-01,   2.32379045e-03,   3.97210975e-08,  6.98274424e-11,   5.58187512e-15
+Go straight or left	1.00000000e+00,   1.91925630e-18,   7.73841745e-20,  3.46975026e-24,   1.37621765e-24
+		
+Matched images		22, 29, 26, 25, 28
+          		35, 34, 36,  9,  3
+           		15, 38, 14, 12, 34
+           		18, 26, 27,  0,  1
+           		1,  4, 14, 40,  2
+           		37, 40, 35, 29, 22
+			
+Label definitions:
+#22 - bumpy road
+#35 - Ahead only
+#18 - General caution
+#1 - 30 kms per hour
+#15 - No vehicles
+#37- go straight or left
 
 
 ```python

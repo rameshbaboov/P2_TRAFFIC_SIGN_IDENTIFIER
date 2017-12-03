@@ -896,45 +896,19 @@ print(Y_train[501:1000])
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
-I used a batch size of 84 and Epochs of 52. I started with a batch size of 128 and epochs of 40, but the accuracy was very less. so increase the Epochs and reduced the batch size and results were better.
+The Convolution neural network Architecture consists of following five layers:
 
-Without drop out				without drop out			with drop out
-EPOCHS = 40					EPOCHS = 52				EPOCHS = 52
-BATCH_SIZE = 128				BATCH_SIZE = 84				BATCH_SIZE = 84
-				
-Training...					Training...				Training...
-EPOCH 1 ...					EPOCH 1 ...				EPOCH 1 ...
-Validation Accuracy = 0.712			Validation Accuracy = 0.702		Validation Accuracy = 0.571
-				
-EPOCH 2 ...					EPOCH 2 ...				EPOCH 2 ...
-Validation Accuracy = 0.810			Validation Accuracy = 0.790		Validation Accuracy = 0.765
-				
-EPOCH 3 ...					EPOCH 3 ...				EPOCH 3 ...
-Validation Accuracy = 0.837			Validation Accuracy = 0.838		Validation Accuracy = 0.849
-				
-EPOCH 4 ...					EPOCH 4 ...				EPOCH 4 ...
-Validation Accuracy = 0.881			Validation Accuracy = 0.847		Validation Accuracy = 0.848
-				
-EPOCH 5 ...					EPOCH 5 ...				EPOCH 5 ...
-Validation Accuracy = 0.872			Validation Accuracy = 0.874		Validation Accuracy = 0.882
-				
----------------------------------------------------------------------------------------------------
-				
-EPOCH 40 ...					EPOCH 40 ...				EPOCH 40 ...
-Validation Accuracy = 0.910			Validation Accuracy = 0.929		Validation Accuracy = 0.964
-				
-Model saved					EPOCH 41 ...				EPOCH 41 ...
-						Validation Accuracy = 0.925		Validation Accuracy = 0.964
-				
----------------------------------------------------------------------------------------------------	
-				
-						EPOCH 52 ...				EPOCH 52 ...
-						Validation Accuracy = 0.928		Validation Accuracy = 0.967
-				
-						Model saved				Model saved
+#   Layer 1: Convolutional layer with Input as 32x32x1 and Output as 28x28x6 with a RELU activation function followed a pooling     with input as 28x28x6 and Output as 14x14x6.
 
+#   Layer 2: Output of Layer 1 as input to Convolutional layer with output as 10x10x16 and with a RELU activation function         followed a pooling with input as 10x10x16 and flattened Output as 5x5x16 
 
+#   Layer 3: Output of Layer 2 input to fully connected layer followed by RELU activation function. Also implemented drop out 	  in layer 3 to increase the accuracy. Accuracy increased from 92% to 95% with drop out
 
+#   Layer 4: output of Layer 3 to fully connected layer followed by RELU activation function with dropout. Output = 84.
+   
+#    Layer 5: Fully connected layer with input of 84 and output as 10 that returns the final logits
+
+  
 ```python
 import tensorflow as tf
 EPOCHS = 52
@@ -1022,6 +996,48 @@ print('done')
 
 
 
+#### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+
+I used a batch size of 84 and Epochs of 52. I started with a batch size of 128 and epochs of 40, but the accuracy was very less. so increase the Epochs and reduced the batch size and results were better.
+
+Used a learning rate of .0009
+
+Following are the results with and without drop out with different batch size and Epochs.
+
+Without drop out				without drop out			with drop out
+EPOCHS = 40					EPOCHS = 52				EPOCHS = 52
+BATCH_SIZE = 128				BATCH_SIZE = 84				BATCH_SIZE = 84
+				
+Training...					Training...				Training...
+EPOCH 1 ...					EPOCH 1 ...				EPOCH 1 ...
+Validation Accuracy = 0.712			Validation Accuracy = 0.702		Validation Accuracy = 0.571
+				
+EPOCH 2 ...					EPOCH 2 ...				EPOCH 2 ...
+Validation Accuracy = 0.810			Validation Accuracy = 0.790		Validation Accuracy = 0.765
+				
+EPOCH 3 ...					EPOCH 3 ...				EPOCH 3 ...
+Validation Accuracy = 0.837			Validation Accuracy = 0.838		Validation Accuracy = 0.849
+				
+EPOCH 4 ...					EPOCH 4 ...				EPOCH 4 ...
+Validation Accuracy = 0.881			Validation Accuracy = 0.847		Validation Accuracy = 0.848
+				
+EPOCH 5 ...					EPOCH 5 ...				EPOCH 5 ...
+Validation Accuracy = 0.872			Validation Accuracy = 0.874		Validation Accuracy = 0.882
+				
+---------------------------------------------------------------------------------------------------
+				
+EPOCH 40 ...					EPOCH 40 ...				EPOCH 40 ...
+Validation Accuracy = 0.910			Validation Accuracy = 0.929		Validation Accuracy = 0.964
+				
+Model saved					EPOCH 41 ...				EPOCH 41 ...
+						Validation Accuracy = 0.925		Validation Accuracy = 0.964
+						EPOCH 52 ...				EPOCH 52 ...
+						Validation Accuracy = 0.928		Validation Accuracy = 0.967
+						Model saved				Model saved
+
+
+
+
 ```python
 rate = 0.0009
 logits = LeNet(x)
@@ -1058,6 +1074,9 @@ print('done')
 
     done
 
+#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+
+My final model has validation accuracy of 96.4% and test accuracy of 94.5%.  This is the best result that i could obtained by tweaking BATCH SIZE, EPOCHS and learning rate.
 
 
 ```python
@@ -1254,6 +1273,14 @@ with tf.Session() as sess:
     Test Accuracy = 0.945
 
 
+### Test a Model on New Images
+
+#### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+
+I downloaded various PNG and GIF files from internet. However the difficulty was in obtaining the images with consistent shape. I downloaded two set of images and tested them separately and the model was able to identify the images.
+
+
+![png](output_27_1.png)
 
 ```python
 # now test with new images

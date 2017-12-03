@@ -7,7 +7,7 @@
 **Build a Traffic Sign Recognition Project**
 
 The goals / steps of this project are the following:
-* Load the data set (see below for links to the project data set)
+* Load the data set given as part of the project
 * Explore, summarize and visualize the data set
 * Design, train and test a model architecture
 * Use the model to make predictions on new images
@@ -16,17 +16,14 @@ The goals / steps of this project are the following:
 
 
 ## Rubric Points
-### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
 
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
+#### Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
-You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
-
-
-### Data Set Summary & Exploration
+Here I have considered all the RUBRIC points and given comments/explanations for each of these points)
 
 
 ### Data Set Summary & Exploration
+
 
 #### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
@@ -35,8 +32,16 @@ I used the pickled data provided here with project for training, testing and val
         Training dataset includes 34799 entries
         Test 12630 entries 
         Validation 4410 entries
+        
+Data shape is 
+         X train shape is  (34799, 32, 32, 3)
+         Y train shape is  (34799,)
+         X test shape is  (12630, 32, 32, 3)
+         Y test shape is  (12630,)
+         X valid shape is  (4410, 32, 32, 3)
+         Y valid shape is  (4410,)
 
-**Load dataset from pickled data**
+**a.  Load dataset from pickled data**
 Load the data from picked data for all three datasets - training , testing and validation data. Load the features and labels into two separate arrays for each of these environment. ensure that X and Y arrays are of same length.  List the shape of the data
 
 ```python
@@ -91,6 +96,15 @@ print(" Y valid shape is ", Y_valid.shape)
 
 
 ```python
+
+#### 2. Include an exploratory visualization of the dataset.
+
+First print a random image to check if the data is loaded correctly. Explore the data to
+
+1. Get the number of entries for each of the environment
+2. Select randomly 10 images and display the images
+3. Create a histogram by Label frequency to understand the frequency distribution of the data by various classes
+
 # print a random image
 
 image_num = random.randint(0,len(X_train))
@@ -199,6 +213,29 @@ plt.show()
 
 
 ```python
+
+### Design and Test a Model Architecture
+
+
+### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
+
+Following are the pre-processing techniques used in this project:
+
+1. Greyscale  - Images are converted to grey scale to increase the speed and effeciency of the training
+2. Check if the data has to be shuffled by printing first 1000 data. Shuffling of the data as the data is in sorted order by classes. Shuffling is required before training
+3. Normalization - Data is normalized using the below formula. I believe it helps in training with a single learning rate 
+   X_test_normalized = (X_test - X_test_min)/(X_test_max - X_test_min). Though mean is not zero, it is very close to zero compared to the original data setup
+4.  functions for data augmentation used are random scaling, random warp, random brightness
+
+### Check the bin count 
+
+[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42] 
+ [ 180 1980 2010 1260 1770 1650  360 1290 1260 1320 1800 1170 1890 1920  690 540  360  990 1080  180  300  270  330  450  240 1350  540  210  480  240  390  690  210  599  360 1080  330  180 1860  270  300  210  210]
+
+Above are the bin count for 43 classes. minimum sample for label is 180.
+
+Check the distribution of the shuffled data to ensure shuffling is proper.
+
 # convert to grey scale
 
 X_train_rgb = X_train
@@ -855,6 +892,177 @@ print(Y_train[501:1000])
 
 
 ```python
+
+
+#### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+
+I used a batch size of 84 and Epochs of 52. I started with a batch size of 128 and epochs of 40, but the accuracy was very less. so increase the Epochs and reduced the batch size and results were better.
+
+Without drop out		without drop out		with drop out
+EPOCHS = 40		EPOCHS = 52		EPOCHS = 52
+BATCH_SIZE = 128		BATCH_SIZE = 84		BATCH_SIZE = 84
+				
+Training...		Training...		Training...
+EPOCH 1 ...		EPOCH 1 ...		EPOCH 1 ...
+Validation Accuracy = 0.712		Validation Accuracy = 0.702		Validation Accuracy = 0.571
+				
+EPOCH 2 ...		EPOCH 2 ...		EPOCH 2 ...
+Validation Accuracy = 0.810		Validation Accuracy = 0.790		Validation Accuracy = 0.765
+				
+EPOCH 3 ...		EPOCH 3 ...		EPOCH 3 ...
+Validation Accuracy = 0.837		Validation Accuracy = 0.838		Validation Accuracy = 0.849
+				
+EPOCH 4 ...		EPOCH 4 ...		EPOCH 4 ...
+Validation Accuracy = 0.881		Validation Accuracy = 0.847		Validation Accuracy = 0.848
+				
+EPOCH 5 ...		EPOCH 5 ...		EPOCH 5 ...
+Validation Accuracy = 0.872		Validation Accuracy = 0.874		Validation Accuracy = 0.882
+				
+EPOCH 6 ...		EPOCH 6 ...		EPOCH 6 ...
+Validation Accuracy = 0.868		Validation Accuracy = 0.883		Validation Accuracy = 0.892
+				
+EPOCH 7 ...		EPOCH 7 ...		EPOCH 7 ...
+Validation Accuracy = 0.899		Validation Accuracy = 0.879		Validation Accuracy = 0.904
+				
+EPOCH 8 ...		EPOCH 8 ...		EPOCH 8 ...
+Validation Accuracy = 0.875		Validation Accuracy = 0.856		Validation Accuracy = 0.908
+				
+EPOCH 9 ...		EPOCH 9 ...		EPOCH 9 ...
+Validation Accuracy = 0.889		Validation Accuracy = 0.882		Validation Accuracy = 0.915
+				
+EPOCH 10 ...		EPOCH 10 ...		EPOCH 10 ...
+Validation Accuracy = 0.898		Validation Accuracy = 0.874		Validation Accuracy = 0.924
+				
+EPOCH 11 ...		EPOCH 11 ...		EPOCH 11 ...
+Validation Accuracy = 0.897		Validation Accuracy = 0.883		Validation Accuracy = 0.927
+				
+EPOCH 12 ...		EPOCH 12 ...		EPOCH 12 ...
+Validation Accuracy = 0.901		Validation Accuracy = 0.884		Validation Accuracy = 0.923
+				
+EPOCH 13 ...		EPOCH 13 ...		EPOCH 13 ...
+Validation Accuracy = 0.901		Validation Accuracy = 0.884		Validation Accuracy = 0.937
+				
+EPOCH 14 ...		EPOCH 14 ...		EPOCH 14 ...
+Validation Accuracy = 0.915		Validation Accuracy = 0.886		Validation Accuracy = 0.933
+				
+EPOCH 15 ...		EPOCH 15 ...		EPOCH 15 ...
+Validation Accuracy = 0.907		Validation Accuracy = 0.900		Validation Accuracy = 0.943
+				
+EPOCH 16 ...		EPOCH 16 ...		EPOCH 16 ...
+Validation Accuracy = 0.915		Validation Accuracy = 0.900		Validation Accuracy = 0.944
+				
+EPOCH 17 ...		EPOCH 17 ...		EPOCH 17 ...
+Validation Accuracy = 0.905		Validation Accuracy = 0.904		Validation Accuracy = 0.950
+				
+EPOCH 18 ...		EPOCH 18 ...		EPOCH 18 ...
+Validation Accuracy = 0.910		Validation Accuracy = 0.897		Validation Accuracy = 0.948
+				
+EPOCH 19 ...		EPOCH 19 ...		EPOCH 19 ...
+Validation Accuracy = 0.895		Validation Accuracy = 0.890		Validation Accuracy = 0.949
+				
+EPOCH 20 ...		EPOCH 20 ...		EPOCH 20 ...
+Validation Accuracy = 0.919		Validation Accuracy = 0.902		Validation Accuracy = 0.952
+				
+EPOCH 21 ...		EPOCH 21 ...		EPOCH 21 ...
+Validation Accuracy = 0.909		Validation Accuracy = 0.902		Validation Accuracy = 0.951
+				
+EPOCH 22 ...		EPOCH 22 ...		EPOCH 22 ...
+Validation Accuracy = 0.918		Validation Accuracy = 0.895		Validation Accuracy = 0.956
+				
+EPOCH 23 ...		EPOCH 23 ...		EPOCH 23 ...
+Validation Accuracy = 0.922		Validation Accuracy = 0.901		Validation Accuracy = 0.953
+				
+EPOCH 24 ...		EPOCH 24 ...		EPOCH 24 ...
+Validation Accuracy = 0.925		Validation Accuracy = 0.902		Validation Accuracy = 0.960
+				
+EPOCH 25 ...		EPOCH 25 ...		EPOCH 25 ...
+Validation Accuracy = 0.921		Validation Accuracy = 0.898		Validation Accuracy = 0.958
+				
+EPOCH 26 ...		EPOCH 26 ...		EPOCH 26 ...
+Validation Accuracy = 0.928		Validation Accuracy = 0.900		Validation Accuracy = 0.958
+				
+EPOCH 27 ...		EPOCH 27 ...		EPOCH 27 ...
+Validation Accuracy = 0.908		Validation Accuracy = 0.905		Validation Accuracy = 0.964
+				
+EPOCH 28 ...		EPOCH 28 ...		EPOCH 28 ...
+Validation Accuracy = 0.931		Validation Accuracy = 0.907		Validation Accuracy = 0.965
+				
+EPOCH 29 ...		EPOCH 29 ...		EPOCH 29 ...
+Validation Accuracy = 0.923		Validation Accuracy = 0.912		Validation Accuracy = 0.963
+				
+EPOCH 30 ...		EPOCH 30 ...		EPOCH 30 ...
+Validation Accuracy = 0.913		Validation Accuracy = 0.920		Validation Accuracy = 0.961
+				
+EPOCH 31 ...		EPOCH 31 ...		EPOCH 31 ...
+Validation Accuracy = 0.919		Validation Accuracy = 0.914		Validation Accuracy = 0.966
+				
+EPOCH 32 ...		EPOCH 32 ...		EPOCH 32 ...
+Validation Accuracy = 0.925		Validation Accuracy = 0.917		Validation Accuracy = 0.961
+				
+EPOCH 33 ...		EPOCH 33 ...		EPOCH 33 ...
+Validation Accuracy = 0.907		Validation Accuracy = 0.920		Validation Accuracy = 0.961
+				
+EPOCH 34 ...		EPOCH 34 ...		EPOCH 34 ...
+Validation Accuracy = 0.925		Validation Accuracy = 0.919		Validation Accuracy = 0.968
+				
+EPOCH 35 ...		EPOCH 35 ...		EPOCH 35 ...
+Validation Accuracy = 0.924		Validation Accuracy = 0.929		Validation Accuracy = 0.959
+				
+EPOCH 36 ...		EPOCH 36 ...		EPOCH 36 ...
+Validation Accuracy = 0.917		Validation Accuracy = 0.915		Validation Accuracy = 0.958
+				
+EPOCH 37 ...		EPOCH 37 ...		EPOCH 37 ...
+Validation Accuracy = 0.921		Validation Accuracy = 0.913		Validation Accuracy = 0.968
+				
+EPOCH 38 ...		EPOCH 38 ...		EPOCH 38 ...
+Validation Accuracy = 0.927		Validation Accuracy = 0.925		Validation Accuracy = 0.963
+				
+EPOCH 39 ...		EPOCH 39 ...		EPOCH 39 ...
+Validation Accuracy = 0.923		Validation Accuracy = 0.913		Validation Accuracy = 0.966
+				
+EPOCH 40 ...		EPOCH 40 ...		EPOCH 40 ...
+Validation Accuracy = 0.910		Validation Accuracy = 0.929		Validation Accuracy = 0.964
+				
+Model saved		EPOCH 41 ...		EPOCH 41 ...
+		Validation Accuracy = 0.925		Validation Accuracy = 0.964
+				
+		EPOCH 42 ...		EPOCH 42 ...
+		Validation Accuracy = 0.911		Validation Accuracy = 0.966
+				
+		EPOCH 43 ...		EPOCH 43 ...
+		Validation Accuracy = 0.923		Validation Accuracy = 0.969
+				
+		EPOCH 44 ...		EPOCH 44 ...
+		Validation Accuracy = 0.921		Validation Accuracy = 0.969
+				
+		EPOCH 45 ...		EPOCH 45 ...
+		Validation Accuracy = 0.923		Validation Accuracy = 0.963
+				
+		EPOCH 46 ...		EPOCH 46 ...
+		Validation Accuracy = 0.930		Validation Accuracy = 0.966
+				
+		EPOCH 47 ...		EPOCH 47 ...
+		Validation Accuracy = 0.915		Validation Accuracy = 0.968
+				
+		EPOCH 48 ...		EPOCH 48 ...
+		Validation Accuracy = 0.925		Validation Accuracy = 0.966
+				
+		EPOCH 49 ...		EPOCH 49 ...
+		Validation Accuracy = 0.915		Validation Accuracy = 0.966
+				
+		EPOCH 50 ...		EPOCH 50 ...
+		Validation Accuracy = 0.916		Validation Accuracy = 0.969
+				
+		EPOCH 51 ...		EPOCH 51 ...
+		Validation Accuracy = 0.904		Validation Accuracy = 0.967
+				
+		EPOCH 52 ...		EPOCH 52 ...
+		Validation Accuracy = 0.928		Validation Accuracy = 0.967
+				
+		Model saved		Model saved
+
+
+
 import tensorflow as tf
 EPOCHS = 52
 BATCH_SIZE = 84

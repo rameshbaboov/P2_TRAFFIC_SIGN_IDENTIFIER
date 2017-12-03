@@ -214,7 +214,7 @@ plt.show()
 
 
 
-```python
+
 
 ### Design and Test a Model Architecture
 
@@ -237,6 +237,8 @@ Following are the pre-processing techniques used in this project:
 Above are the bin count for 43 classes. minimum sample for label is 180.
 
 Check the distribution of the shuffled data to ensure shuffling is proper.
+
+```python
 
 # convert to grey scale
 

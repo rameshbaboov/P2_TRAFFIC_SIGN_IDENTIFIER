@@ -95,7 +95,7 @@ print(" Y valid shape is ", Y_valid.shape)
 
 
 
-```python
+
 
 #### 2. Include an exploratory visualization of the dataset.
 
@@ -105,6 +105,8 @@ First print a random image to check if the data is loaded correctly. Explore the
 2. Select randomly 10 images and display the images
 3. Create a histogram by Label frequency to understand the frequency distribution of the data by various classes
 
+
+```python
 # print a random image
 
 image_num = random.randint(0,len(X_train))
